@@ -77,14 +77,14 @@ jobs:
 
     - name: Build example
       run: |
-        cd rnnoise/example
+        cd cmd/rnnoise-cli
         go build -o rnnoise-cli .
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: rnnoise-cli-linux
-        path: rnnoise/example/rnnoise-cli
+        path: cmd/rnnoise-cli/rnnoise-cli
 
   cross-build:
     runs-on: ubuntu-latest
@@ -114,14 +114,14 @@ jobs:
 
     - name: Cross build example
       run: |
-        cd rnnoise/example
+        cd cmd/rnnoise-cli
         GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} go build -o rnnoise-cli-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }} .
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
         name: rnnoise-cli-${{ matrix.goos }}-${{ matrix.goarch }}
-        path: rnnoise/example/rnnoise-cli-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
+        path: cmd/rnnoise-cli/rnnoise-cli-${{ matrix.goos }}-${{ matrix.goarch }}${{ matrix.goos == 'windows' && '.exe' || '' }}
 
   security:
     runs-on: ubuntu-latest
